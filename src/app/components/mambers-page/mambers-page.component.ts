@@ -44,27 +44,5 @@ export class MambersPageComponent implements OnInit {
     this.cartService.addToCart(theCartItem);
     
   }
-  /*checkNewDiscount(){
-    const ws = new WebSocket('ws://localhost:3000');
-
-    ws.addEventListener('open', () => {
-      console.log('WebSocket connected');
-    });
-
-    ws.addEventListener('message', (event) => {
-      if(event.data.includes('New discount arrived check the mambers page for the opportunity')){
-        this.route.paramMap.subscribe(() => {
-          this.handleDiscount();
-          //alert("New discount arrived check the mambers page for the opportunity");
-        });
-      }
-      
-      console.log(event.data);
-    });
-
-    ws.addEventListener('close', () => {
-      console.log('WebSocket disconnected');
-    });
-  }*/
 
 }
