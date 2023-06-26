@@ -20,6 +20,7 @@ export class ProductListComponent implements OnInit {
   searchMode: boolean = false;
   notification = false;
   isAuthenticated = false;
+  storage:Storage = sessionStorage;
 
   // new properties for pagination
   thePageNumber: number = 1;
@@ -42,8 +43,11 @@ export class ProductListComponent implements OnInit {
           this.listProducts();
         });
       }
-      else if(event.data.includes('New discount arrived check the mambers page for the opportunity')){
+      else if(event.data.includes('New discount arrived for '+this.storage.getItem('userEmail'))){
         this.notification = true; 
+      }
+      else if(!event.data.includes('New discount arrived for '+this.storage.getItem('userEmail'))){
+        this.notification = false;
       }
       
       console.log(event.data);

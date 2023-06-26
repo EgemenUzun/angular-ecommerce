@@ -1,11 +1,10 @@
 <div class="main-content">
-    <div *ngIf="product == null" class="alert alert-warning col-md-12" role="alert">
+    <div *ngIf="!isShowDiscount" class="alert alert-warning col-md-12" role="alert">
         <h3>Members Spacial</h3>
         <p>Thenk you for being a member.</p>
         <p>Member discounts are coming soon!!</p>
     </div>
-    <div *ngIf="product !=null" class="container-fluid">
-        <div class="container-fluid">
+        <div *ngIf="isShowDiscount" class="container-fluid">
 
             <img src="{{ product.imageUrl }}" class="detail-img">
     
@@ -17,5 +16,4 @@
             <h4>Description</h4>
             <p>{{ product.description }}</p>
         </div>
-    </div>
 </div>

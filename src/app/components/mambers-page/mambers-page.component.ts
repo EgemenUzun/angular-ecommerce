@@ -14,20 +14,18 @@ import { WebSocketService } from 'src/app/services/web-socket.service';
 export class MambersPageComponent implements OnInit {
   constructor(private productService:ProductService, private route: ActivatedRoute, private cartService: CartService,private ws:WebSocketService){}
   product: Product = new Product();
+  storage:Storage = sessionStorage;
+  isShowDiscount = false;
   ngOnInit(): void {
     //this.checkNewDiscount();
     this.ws.getSocket().addEventListener('message', (event) => {
-      if(event.data.includes('New discount arrived check the mambers page for the opportunity')){
+      this.isShowDiscount = event.data.includes('New discount arrived for '+this.storage.getItem('userEmail'));
         this.route.paramMap.subscribe(() => {
           this.handleDiscount();
-        });
-      }
+      })
       
-      console.log(event.data);
+      //console.log(event.data);
     });
-    this.route.paramMap.subscribe(() => {
-      this.handleDiscount();
-    })
   }
   handleDiscount(){
     this.productService.getProductwithDiscount().subscribe(
