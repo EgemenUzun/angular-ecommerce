@@ -117,6 +117,7 @@ a,a:hover{
 
 .main-content{
     padding-top:116px;
+    z-index: auto;
     min-height:100vh
 }
 
@@ -206,7 +207,7 @@ section{
 .section-content{
     position:relative;
     margin:0 auto;
-    z-index:1
+    z-index: auto
 }
 
 .section-content-p30{
@@ -537,7 +538,8 @@ input.au-input.au-input-xl{
     margin-left: 5px;
 }
 .product-box{
-    margin-bottom:60px
+    margin-bottom:60px;
+    max-width: 236px
 }
 .price{
     margin:15px 0 0;

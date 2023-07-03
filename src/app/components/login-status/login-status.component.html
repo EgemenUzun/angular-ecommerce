@@ -1,14 +1,15 @@
-<div class="login-status-header">
-
-    <div *ngIf="isAuthenticated && userFullName" class="login-status-user-info">
-        Welcome back {{ userFullName }}!
-    </div>
-
-    <button *ngIf="!isAuthenticated" routerLink="/login" class="security-btn">Login</button>
-
-    <button *ngIf="isAuthenticated" (click)="logout()" class="security-btn">Logout</button>
-
-    <button *ngIf="isAuthenticated" routerLink="/members" class="security-btn ml-1">Mamber</button>
-
-    <button *ngIf="isAuthenticated" routerLink="/order-hostory" class="security-btn ml-1">Orders</button>
-</div>
+<li  *ngIf="isAuthenticated && userFullName">
+    <a class="dropdown-item">Welcome back {{ userFullName }}!</a>
+</li>
+<li *ngIf="!isAuthenticated">
+    <a  routerLink="/login" class="dropdown-item">Login</a>
+</li>
+<li *ngIf="isAuthenticated">
+    <button  (click)="logout()" class="dropdown-item">Logout</button>
+</li>
+<li *ngIf="isAuthenticated"> 
+    <button routerLink="/members" class="dropdown-item">Mamber</button>
+</li>
+<li *ngIf="isAuthenticated">
+    <button routerLink="/order-hostory" class="dropdown-item">Orders</button>
+</li>
