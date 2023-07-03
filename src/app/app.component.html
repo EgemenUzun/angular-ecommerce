@@ -1,7 +1,7 @@
 <div class="page-wrapper">
 
   <!-- MENU SIDEBAR-->
-  <aside class="menu-sidebar d-none d-lg-block">
+  <aside class="menu-sidebar d-lg-block">
     <div class="logo">
       <a routerLink="/products">
         <img src="assets/images/logo.png" alt="luv2shop" class="img-responsive">
@@ -10,27 +10,34 @@
 
     <app-product-category-menu></app-product-category-menu>
 
-  </aside>
+  </aside> 
   <!-- END MENU SIDEBAR-->
 
-  <div class="page-container">
+  <div class="page-container ">
     <!-- HEADER DESKTOP-->
-    <header class="header-desktop">
-      <div class="section-content section-content-p30">
-        <div class="container-fluid">
-          <div class="header-wrap">
-
-            <app-search></app-search>
- 
-            <app-login-status></app-login-status>
-            
-            <app-cart-status></app-cart-status>
-
+      <nav class="navbar navbar-dark bg-primary">
+        <div class="section-content section-content-p30 ">
+          <div class="container-fluid">
+            <div class="header-wrap">
+  
+              <app-search></app-search>
+              <app-cart-status class="ms-5"></app-cart-status>
+              <div class="dropdown ms-5 ">
+                <button class="au-btn-submit dropdown-toggle" style="height: 44.6px;" data-bs-toggle="dropdown" aria-expanded="false">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+                  </svg>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                  <app-login-status></app-login-status>
+                </ul>
+              </div>
+              
+            </div>
+            <div class="account-wrap"></div>
           </div>
-          <div class="account-wrap"></div>
         </div>
-      </div>
-    </header>
+      </nav>
     <!-- END HEADER DESKTOP-->
     
     <!-- MAIN CONTENT-->

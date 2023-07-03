@@ -32,36 +32,16 @@ import myAppConfig from './config/my-app-config';
 import { MambersPageComponent } from './components/mambers-page/mambers-page.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { RouteService } from './services/route.service';
 
 const oktaConfig = myAppConfig.oidc;
 
 const oktaAuth = new OktaAuth(oktaConfig);
 
-function sendLoginPage(oktaAuth:OktaAuth,injector:Injector){
-  // Use injector to access any service available within your application
-  const router = injector.get(Router);
-  // Redircet the user to your custom login page
-  router.navigate(['/login']);
+export function callRoutes():Routes{
+  const routeService = new RouteService();
+  return routeService.getRoutes();
 }
-
-const routes: Routes = [
-  {path: 'order-hostory', component: OrderHistoryComponent,canActivate:[OktaAuthGuard],data:{onAuthRequired: sendLoginPage}},
-
-  {path: 'members', component: MambersPageComponent ,canActivate:[OktaAuthGuard],data:{onAuthRequired: sendLoginPage}},
-
-  {path: 'login/callback', component: OktaCallbackComponent},
-  {path: 'login', component: LoginComponent},
-  
-  {path: 'checkout', component: CheckoutComponent},
-  {path: 'cart-details', component: CartDetailsComponent},
-  {path: 'products/:id', component: ProductDetailsComponent},
-  {path: 'search/:keyword', component: ProductListComponent},
-  {path: 'category/:id', component: ProductListComponent},
-  {path: 'category', component: ProductListComponent},
-  {path: 'products', component: ProductListComponent},
-  {path: '', redirectTo: '/products', pathMatch: 'full'},
-  {path: '**', redirectTo: '/products', pathMatch: 'full'}
-];
 
 @NgModule({
   declarations: [
@@ -79,14 +59,14 @@ const routes: Routes = [
     OrderHistoryComponent
   ],
   imports: [
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(callRoutes()),
     BrowserModule,
     HttpClientModule,
     NgbModule,
     ReactiveFormsModule,
     OktaAuthModule
   ],
-  providers: [ProductService, { provide: OKTA_CONFIG, useValue: { oktaAuth }},{provide:HTTP_INTERCEPTORS , useClass :AuthInterceptorService,multi:true}],
+  providers: [RouteService,ProductService, { provide: OKTA_CONFIG, useValue: { oktaAuth }},{provide:HTTP_INTERCEPTORS , useClass :AuthInterceptorService,multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
