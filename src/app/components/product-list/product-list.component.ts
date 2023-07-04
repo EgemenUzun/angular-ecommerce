@@ -41,8 +41,6 @@ export class ProductListComponent implements OnInit {
           this.listProducts();
         });
       }
-      
-      console.log(event.data);
     });
     //default products
 

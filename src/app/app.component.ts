@@ -16,7 +16,6 @@ export class AppComponent implements OnInit {
   constructor(private ws:WebSocketService,private oktaAuthService: OktaAuthStateService) {}
   ngOnInit(): void {
     this.ws.getSocket().addEventListener('message',(event)=>{
-      console.log(event.data.includes('New discount arrived for '+this.storage.getItem('userEmail')));
       if(event.data.includes('New discount arrived for '+this.storage.getItem('userEmail'))){
         this.notification = true; 
       }
