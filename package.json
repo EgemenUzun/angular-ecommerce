@@ -1,12 +1,14 @@
 {
   "name": "angular-ecommercen",
   "version": "0.0.0",
+  "main": "app.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "electron": "ng build --configuration development && electron ."
   },
   "private": true,
   "dependencies": {
@@ -39,6 +41,7 @@
     "@angular/localize": "^16.0.3",
     "@types/amqplib": "^0.10.1",
     "@types/jasmine": "~4.3.0",
+    "electron": "^25.2.0",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
