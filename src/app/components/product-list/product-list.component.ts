@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { CartItem } from 'src/app/common/cart-item';
 import { CartService } from 'src/app/services/cart.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
-import { OktaAuthStateService } from '@okta/okta-angular';
 
 @Component({
   selector: 'app-product-list',
@@ -18,7 +17,6 @@ export class ProductListComponent implements OnInit {
   currentCategoryId: number = 1;
   previousCategoryId: number = 1;
   searchMode: boolean = false;
-  isAuthenticated = false;
 
   // new properties for pagination
   thePageNumber: number = 1;
@@ -30,8 +28,7 @@ export class ProductListComponent implements OnInit {
   constructor(private productService: ProductService,
               private cartService: CartService,
               private route: ActivatedRoute,
-              private ws:WebSocketService,
-              private oktaAuthService: OktaAuthStateService) { }
+              private ws:WebSocketService) { }
 
   ngOnInit() {
   
@@ -47,13 +44,6 @@ export class ProductListComponent implements OnInit {
     this.route.paramMap.subscribe(() => {
       this.listProducts();
     });
-
-    // Subscribe to authentication state changes
-    this.oktaAuthService.authState$.subscribe(
-      (result) => {
-        this.isAuthenticated = result.isAuthenticated!;
-      }
-    );
   }
   showNoficitation(){
     
@@ -110,7 +100,6 @@ export class ProductListComponent implements OnInit {
 
     //
     // Check if we have a different category than previous
-    // Note: Angular will reuse a component if it is currently being viewed
     //
 
     // if we have a different category id than previous
