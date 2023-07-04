@@ -39,6 +39,9 @@
         </div>
       </nav>
     <!-- END HEADER DESKTOP-->
+    <div *ngIf="isAuthenticated && notification" class="alert alert-warning col-md-12" role="alert">
+      New discount arrived check the mambers page for the opportunity  
+    </div>
     
     <!-- MAIN CONTENT-->
     <router-outlet></router-outlet>
