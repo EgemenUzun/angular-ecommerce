@@ -1,9 +1,5 @@
-<div *ngIf="notification" class="alert alert-warning col-md-12" role="alert">
-  USER NAME OR PASSWORD IS NOT CORRECT
-</div>
-<!-- Container to inject the Okta Sign-In Widget -->
+<div *ngIf="notification" class="alert alert-warning col-md-12" role="alert">User Name Is Already Taken</div>
 <div class="pt-5">
-    <!--<div id="okta-sign-in-widget" class="pt-5"></div> -->
     <div class="wrapper fadeInDown">
         <div id="formContent">
           <!-- Tabs Titles -->
@@ -14,23 +10,21 @@
           </div>
       
           <!-- Login Form -->
-          <form [formGroup]="loginFormGroup" (submit)="onSubmit()">
-            <div formGroupName="login">
+          <form [formGroup]="registerFormGroup" (submit)="onSubmit()">
+            <div formGroupName="register">
               <div class="input-space">
                 <input formControlName="username" type="text" id="login" class="fadeIn second" name="login" placeholder="User Name">
                 <input formControlName="password" type="text" id="password" class="fadeIn third" name="login" placeholder="password">
               </div>
             </div>
             <div class="text-center">
-              <button type="submit" class="btn btn-info">Log In</button>
+              <button type="submit" class="btn btn-info">Sign In</button>
           </div>
           </form>
       
           <!-- Remind Passowrd -->
           <div id="formFooter">
-            <a class="underlineHover" href="#">Forgot Password?</a>
-            <br>
-            <a class="underlineHover"routerLink="/register">Sign In</a>
+            <a class="underlineHover" routerLink="/login">Login</a>
           </div>
       
         </div>

@@ -33,6 +33,8 @@ import { MambersPageComponent } from './components/mambers-page/mambers-page.com
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { RouteService } from './services/route.service';
+import { RegisterComponent } from './components/register/register.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const oktaConfig = myAppConfig.oidc;
 
@@ -56,7 +58,8 @@ export function callRoutes():Routes{
     LoginComponent,
     LoginStatusComponent,
     MambersPageComponent,
-    OrderHistoryComponent
+    OrderHistoryComponent,
+    RegisterComponent
   ],
   imports: [
     RouterModule.forRoot(callRoutes()),
@@ -66,7 +69,7 @@ export function callRoutes():Routes{
     ReactiveFormsModule,
     OktaAuthModule
   ],
-  providers: [RouteService,ProductService, { provide: OKTA_CONFIG, useValue: { oktaAuth }},{provide:HTTP_INTERCEPTORS , useClass :AuthInterceptorService,multi:true}],
+  providers: [RouteService,ProductService, { provide: OKTA_CONFIG, useValue: { oktaAuth }},AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -9,6 +9,8 @@ import { MambersPageComponent } from '../components/mambers-page/mambers-page.co
 import { ProductDetailsComponent } from '../components/product-details/product-details.component';
 import { ProductListComponent } from '../components/product-list/product-list.component';
 import OktaAuth from '@okta/okta-auth-js';
+import { RegisterComponent } from '../components/register/register.component';
+import { AuthGuardService } from './auth-guard.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,12 +26,13 @@ export class RouteService {
     router.navigate(['/login']);
   }
     private routes: Routes = [
-    {path: 'order-hostory', component: OrderHistoryComponent,canActivate:[OktaAuthGuard],data:{onAuthRequired: this.sendLoginPage}},
+    {path: 'order-hostory', component: OrderHistoryComponent,canActivate:[AuthGuardService]},
   
-    {path: 'members', component: MambersPageComponent ,canActivate:[OktaAuthGuard],data:{onAuthRequired: this.sendLoginPage}},
+    {path: 'members', component: MambersPageComponent ,canActivate:[AuthGuardService]},
   
     {path: 'login/callback', component: OktaCallbackComponent},
     {path: 'login', component: LoginComponent},
+    {path: 'register', component: RegisterComponent},
     
     {path: 'checkout', component: CheckoutComponent},
     {path: 'cart-details', component: CartDetailsComponent},
