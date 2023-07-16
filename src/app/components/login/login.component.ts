@@ -18,24 +18,12 @@ import { Token } from '@angular/compiler';
 })
 export class LoginComponent implements OnInit {
 
-  oktaSignin: any;
+  //oktaSignin: any;
   loginFormGroup!: FormGroup;
   notification=false;
 
-  constructor(@Inject(OKTA_AUTH) private oktaAuth: OktaAuth,private authService:AuthService,private formBuilder: FormBuilder, private router: Router) {
+  constructor(private authService:AuthService,private formBuilder: FormBuilder, private router: Router) {
 
-    /*this.oktaSignin = new OktaSignIn({
-      logo: 'assets/images/logo.png',
-      baseUrl: myAppConfig.oidc.issuer.split('/oauth2')[0],
-      clientId: myAppConfig.oidc.clientId,
-      redirectUri: myAppConfig.oidc.redirectUri,
-      useClassicEngine: true,
-      authParams: {
-        pkce: true,
-        issuer: myAppConfig.oidc.issuer,
-        scopes: myAppConfig.oidc.scopes
-      }
-    });*/
    }
    storage:Storage = localStorage;
   /// Auth service
@@ -64,21 +52,6 @@ export class LoginComponent implements OnInit {
         password:new FormControl('')
       })
     });
-
-    //okta service
-    /*this.oktaSignin.remove();
-
-    this.oktaSignin.renderEl({
-      el: '#okta-sign-in-widget'}, // this name should be same as div tag id in login.component.html
-      (response: any) => {
-        if (response.status === 'SUCCESS') {
-          this.oktaAuth.signInWithRedirect();
-        }
-      },
-      (error: any) => {
-        throw error;
-      }
-    );*/
   }
 
 }

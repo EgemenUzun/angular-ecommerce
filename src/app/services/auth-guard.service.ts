@@ -1,16 +1,21 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
-import { Router, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuardService {
-  storage1:Storage = localStorage;
   constructor(public authService:AuthService,public router:Router) { }
-  status=false;
-  canActivate(): boolean | UrlTree {
-     this.authService.isTokenValid().subscribe(result=>{this.status=result;})
-    return this.status  ||this.router.parseUrl('/login');
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean>{
+    return new Promise(async (resolve) => {
+      if((await this.authService.isAuth()).valueOf()){
+        resolve(true);
+      }
+      else {
+        this.router.navigate(['/login']);
+        resolve(false);
+      }
+    });
   }
 }

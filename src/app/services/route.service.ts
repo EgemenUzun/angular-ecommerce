@@ -19,18 +19,11 @@ export class RouteService {
 
   constructor() { }
   
-   sendLoginPage(oktaAuth:OktaAuth,injector:Injector){
-    // Use injector to access any service available within your application
-    const router = injector.get(Router);
-    // Redircet the user to your custom login page
-    router.navigate(['/login']);
-  }
     private routes: Routes = [
     {path: 'order-hostory', component: OrderHistoryComponent,canActivate:[AuthGuardService]},
   
     {path: 'members', component: MambersPageComponent ,canActivate:[AuthGuardService]},
   
-    {path: 'login/callback', component: OktaCallbackComponent},
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     

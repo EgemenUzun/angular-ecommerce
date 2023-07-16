@@ -23,12 +23,6 @@ export class AppComponent implements OnInit {
         this.notification = false;
       }
     });
-    
-    this.oktaAuthService.authState$.subscribe(
-      (result) => {
-        this.isAuthenticated = result.isAuthenticated!;
-      }
-    );
   }
   title = 'angular-ecommerce';
 

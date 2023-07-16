@@ -7,9 +7,9 @@ import { Observable, from, lastValueFrom } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthInterceptorService implements HttpInterceptor {
+export class AuthInterceptorService {
 
-  constructor(@Inject(OKTA_AUTH) private oktaAuth:OktaAuth) { }
+  /*constructor(@Inject(OKTA_AUTH) private oktaAuth:OktaAuth) { }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return from(this.handleAccess(request,next));
   }
@@ -28,7 +28,7 @@ export class AuthInterceptorService implements HttpInterceptor {
       );
     }
     return await lastValueFrom(next.handle(request));
-  }
+  }*/
 }
   
 
