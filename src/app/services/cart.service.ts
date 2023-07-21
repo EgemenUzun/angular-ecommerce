@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CartItem } from '../common/cart-item';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { Product } from '../common/product';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +16,7 @@ export class CartService {
   //storage:Storage = localStorage;
 
   constructor() { 
-    // read date from storage
+    // read data from storage
     let data = JSON.parse(this.storage.getItem('cartItems')!);
 
     if(data != null){
@@ -74,10 +73,6 @@ export class CartService {
     this.logCartData(totalPriceValue, totalQuantityValue);
 
     //persist cart data
-    this.presistCartItems();
-  }
-
-  presistCartItems(){
     this.storage.setItem('cartItems', JSON.stringify(this.cartItems));
   }
 

@@ -1,15 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { OKTA_AUTH } from '@okta/okta-angular';
-import { OktaAuth } from '@okta/okta-auth-js';
-import OktaSignIn from '@okta/okta-signin-widget';
+import { Component, OnInit } from '@angular/core';
 
-import myAppConfig from '../../config/my-app-config';
-import { FormBuilder, FormGroup,FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Login } from 'src/app/common/login';
 import { AuthService } from 'src/app/services/auth.service';
-import { User } from 'src/app/common/user';
 import { Router } from '@angular/router';
-import { Token } from '@angular/compiler';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +28,7 @@ export class LoginComponent implements OnInit {
     let loginUser = new Login();
     loginUser = this.loginFormGroup.controls['login'].value;
     this.authService.loginUser(loginUser).subscribe(data=>{
-      if(data!=null){
+      if(data!==null){
         this.storage.setItem('token',data.jwt);
         this.storage.setItem('username',data.user.username);
         this.router.navigateByUrl('/product').then(data=> window.location.reload());

@@ -1,8 +1,8 @@
 import { Role } from "./role";
 
 export class User {
-    userId!:string;
-    username!:string;
-    password!:string;
-    athorities!:Role[];
+    constructor(public userId:string,
+        public username:string,
+        public password:string,
+        public athorities:Role[]){}
 }

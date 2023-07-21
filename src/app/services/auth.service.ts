@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, firstValueFrom } from 'rxjs';
 import { Login } from '../common/login';
@@ -13,14 +13,14 @@ export class AuthService {
   userUrl ='/api/user';
   constructor(private httpClient:HttpClient) { }
   storage:Storage = localStorage;
-  loginUser(body:Login):Observable<GetResponseLogin>{
-    return this.httpClient.post<GetResponseLogin>(this.authUrl+'/login', body);
+  loginUser(body:Login):Observable<any>{
+    return this.httpClient.post<any>(this.authUrl+'/login', body);
   }
   registerUser(body:Login):Observable<any>{
-    console.log(body);
     return this.httpClient.post<any>(this.authUrl+'/register', body);
   }
-  isTokenValid(): Observable<boolean> {
+   isTokenValid(): Observable<boolean> {
+
     var subject = new Subject<boolean>();
    
       var model={jwt:`${this.getToken()}`};
@@ -44,7 +44,4 @@ export class AuthService {
   }
 
 }
-interface GetResponseLogin {
-  user:User,
-  jwt:string;
-}
+

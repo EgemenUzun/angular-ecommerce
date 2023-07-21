@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/common/login';
-import { User } from 'src/app/common/user';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -11,7 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  constructor(private authService:AuthService,private formBuilder: FormBuilder,private router: Router){}
+  constructor(private authService:AuthService,public formBuilder: FormBuilder,private router: Router){}
   registerFormGroup!: FormGroup;
   notification=false;
   /// Auth service

@@ -17,14 +17,12 @@ export class MambersPageComponent implements OnInit {
   storage:Storage = sessionStorage;
   isShowDiscount = false;
   ngOnInit(): void {
-    //this.checkNewDiscount();
     this.ws.getSocket().addEventListener('message', (event) => {
       this.isShowDiscount = event.data.includes('New discount arrived for '+this.storage.getItem('userEmail'));
         this.route.paramMap.subscribe(() => {
           this.handleDiscount();
       })
       
-      //console.log(event.data);
     });
   }
   handleDiscount(){

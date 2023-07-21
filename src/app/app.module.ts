@@ -1,12 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { Injector, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ProductService } from './services/product.service';
 
-import { Routes, RouterModule, Router} from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
 import { SearchComponent } from './components/search/search.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
@@ -19,26 +19,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
 
-import {
-  OktaAuthModule,
-  OktaCallbackComponent,
-  OKTA_CONFIG, 
-  OktaAuthGuard
-} from '@okta/okta-angular';
 
-import { OktaAuth } from '@okta/okta-auth-js';
-
-import myAppConfig from './config/my-app-config';
 import { MambersPageComponent } from './components/mambers-page/mambers-page.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
-import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { RouteService } from './services/route.service';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthGuardService } from './services/auth-guard.service';
 
-const oktaConfig = myAppConfig.oidc;
-
-const oktaAuth = new OktaAuth(oktaConfig);
 
 export function callRoutes():Routes{
   const routeService = new RouteService();
@@ -67,9 +54,8 @@ export function callRoutes():Routes{
     HttpClientModule,
     NgbModule,
     ReactiveFormsModule,
-    OktaAuthModule
   ],
-  providers: [RouteService,ProductService, { provide: OKTA_CONFIG, useValue: { oktaAuth }},AuthGuardService],
+  providers: [RouteService,ProductService,AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

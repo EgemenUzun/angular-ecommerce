@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WebSocketService } from './services/web-socket.service';
-import { OktaAuthStateService } from '@okta/okta-angular';
+
 
 
 @Component({
@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   isAuthenticated = false;
   storage:Storage = sessionStorage;
 
-  constructor(private ws:WebSocketService,private oktaAuthService: OktaAuthStateService) {}
+  constructor(private ws:WebSocketService) {}
   ngOnInit(): void {
     this.ws.getSocket().addEventListener('message',(event)=>{
       if(event.data.includes('New discount arrived for '+this.storage.getItem('userEmail'))){

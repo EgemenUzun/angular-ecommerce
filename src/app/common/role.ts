@@ -1,4 +1,4 @@
 export class Role {
-    roleId!:number;
-    authority!:string;
+    constructor(public roleId:number,public authority:string){}
+    
 }
