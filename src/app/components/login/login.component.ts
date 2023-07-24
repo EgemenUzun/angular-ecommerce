@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
     let loginUser = new Login();
     loginUser = this.loginFormGroup.controls['login'].value;
     this.authService.loginUser(loginUser).subscribe(data=>{
+      console.log(data);
       if(data!==null){
         this.storage.setItem('token',data.jwt);
         this.storage.setItem('username',data.user.username);
@@ -35,6 +36,9 @@ export class LoginComponent implements OnInit {
       }
       else
         this.notification=true
+    },
+    (err)=>{
+      this.notification=true
     });
   }
 

@@ -9,7 +9,7 @@ import { OrderHistoryService } from 'src/app/services/order-history.service';
 })
 export class OrderHistoryComponent implements OnInit {
   orderHistoryList: OrderHistory[] = [];
-  storage :Storage = sessionStorage;
+  storage :Storage = localStorage;
   constructor(private orderHistoryService:OrderHistoryService){}
   
   ngOnInit(): void {
@@ -17,9 +17,9 @@ export class OrderHistoryComponent implements OnInit {
   }
   handleOrderHistory() {
     // read the user's email from storage
-    const email = JSON.parse(this.storage.getItem('userEmail')!);
+    const username = (this.storage.getItem('username')!);
     //retrieve data from the service
-    this.orderHistoryService.getOrderHistory(email).subscribe(
+    this.orderHistoryService.getOrderHistory(username).subscribe(
       data => {
         this.orderHistoryList = data;
       }

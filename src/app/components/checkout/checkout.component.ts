@@ -32,6 +32,7 @@ export class CheckoutComponent implements OnInit {
   billingAddressStates: State[] = [];
 
   storage:Storage =sessionStorage;
+  userStroge:Storage = localStorage;
     
   constructor(private formBuilder: FormBuilder,
               private luv2ShopFormService: Luv2ShopFormService,
@@ -205,6 +206,7 @@ export class CheckoutComponent implements OnInit {
     
     // populate purchase - customer
     purchase.customer = this.checkoutFormGroup.controls['customer'].value;
+    purchase.customer.userName= this.userStroge.getItem("username")!;
     
     // populate purchase - shipping address
     purchase.shippingAddress = this.checkoutFormGroup.controls['shippingAddress'].value;
