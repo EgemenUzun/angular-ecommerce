@@ -4,7 +4,6 @@
   "main": "app.js",
   "scripts": {
     "ng": "ng",
-    
     "start": "ng serve --proxy-config src/proxy.conf.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
@@ -37,11 +36,12 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.0.1",
-    "@angular/cli": "~16.0.1",
+    "@angular/cli": "^16.1.5",
     "@angular/compiler-cli": "^16.0.0",
     "@angular/localize": "^16.0.3",
     "@types/amqplib": "^0.10.1",
     "@types/jasmine": "~4.3.0",
+    "cypress": "^4.2.0",
     "electron": "^25.2.0",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
