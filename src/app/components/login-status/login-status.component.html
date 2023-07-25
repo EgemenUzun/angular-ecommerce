@@ -1,5 +1,5 @@
 <li *ngIf="isAuthenticated && userFullName"><div class="ms-3">{{ userFullName }}</div></li>
-<li><hr class="dropdown-divider"></li>
+<li *ngIf="isAuthenticated"><hr class="dropdown-divider"></li>
 <li *ngIf="!isAuthenticated">
     <a  routerLink="/login" class="dropdown-item">Login</a>
 </li>
