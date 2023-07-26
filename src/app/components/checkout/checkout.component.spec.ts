@@ -2,18 +2,23 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { of } from 'rxjs';
+import { Country } from '../../common/country';
+import { Purchase } from '../../common/purchase';
+import { State } from '../../common/state';
 import { CartService } from '../../services/cart.service';
 import { CheckoutService } from '../../services/checkout.service';
 import { Luv2ShopFormService } from '../../services/luv2-shop-form.service';
 import { CheckoutComponent } from './checkout.component';
-import { Country } from '../../common/country';
-import { of } from 'rxjs';
-import { Address } from '../../common/address';
 
 fdescribe('CheckoutComponent', () => {
   let component: CheckoutComponent;
   let fixture: ComponentFixture<CheckoutComponent>;
   let formSerivce: Luv2ShopFormService;
+  let checkoutService: CheckoutService;
+  let cardService:CartService;
+  let router: Router;
   beforeEach(async () => {
       await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule,ReactiveFormsModule],
@@ -25,7 +30,10 @@ fdescribe('CheckoutComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CheckoutComponent);
     component = fixture.componentInstance;
+    checkoutService = TestBed.inject(CheckoutService);
     formSerivce = TestBed.inject(Luv2ShopFormService);
+    cardService = TestBed.inject(CartService);
+    router = TestBed.inject(Router);
     fixture.detectChanges();
   });
 
@@ -46,26 +54,45 @@ fdescribe('CheckoutComponent', () => {
   });
 
   it('should call onSubmit when form is valid', () => {
+    const mockResponse = { orderTrackingNumber: '123456' };
+    const purchase:Purchase = new Purchase();
+
+    spyOn(checkoutService, 'placeOrder').and.returnValue(of(mockResponse));
+    spyOn(window, 'alert');
+    spyOn(component.checkoutFormGroup,'get');
+    spyOnProperty(component.checkoutFormGroup,'invalid').and.returnValue(false);
+    spyOn(router,'navigateByUrl');
+
     component.firstName?.setValue('test');
     component.lastName?.setValue('test');
     component.email?.setValue('test@test.com');
 
-    spyOn(component, 'onSubmit');
     component.onSubmit();
 
-    expect(component.onSubmit).toHaveBeenCalled();
+    expect(component.checkoutFormGroup.invalid).toBe(false);
+    expect(window.alert).toHaveBeenCalledWith(`Your order has been received.\nOrder tracking number: ${mockResponse.orderTrackingNumber}`);
+    expect(cardService.cartItems).toEqual([]);
+    expect(component.checkoutFormGroup.get).toHaveBeenCalled();
   });
 
+
+  it('should call onSubmit when form is valid', () => { 
+    spyOnProperty(component.checkoutFormGroup,'invalid').and.returnValue(true);
+    component.onSubmit();
+    expect(component.checkoutFormGroup.invalid).toBe(true);
+  });
   it('should shipping adderss and billing address equal',()=>{
-    
+    const states:State[] = [{id:1,name:'Ankara'}];
+    component.shippingAddressStates = states;
     component.copyShippingAddressToBillingAddress(true);
     expect(component.billingAddressStates).toBe(component.shippingAddressStates);
   });
 
   it('should shipping adderss and billing address not equal',()=>{
-    component.copyShippingAddressToBillingAddress(true);
+    const states:State[] = [{id:1,name:'Ankara'}];
+    const statesB:State[] = [{id:2,name:'Istanbul'}];
+    component.copyShippingAddressToBillingAddress(false);
     expect(component.billingAddressStates).not.toBe(component.shippingAddressStates);
-
   });
 
 });

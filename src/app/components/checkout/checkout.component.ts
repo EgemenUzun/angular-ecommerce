@@ -228,9 +228,6 @@ export class CheckoutComponent implements OnInit {
           // reset cart
           this.resetCart();
 
-        },
-        error: err => {
-          alert(`There was an error: ${err.message}`);
         }
       }
     );
