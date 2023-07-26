@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CartDetailsComponent } from './cart-details.component';
-import { CartService } from 'src/app/services/cart.service';
-import { CartItem } from 'src/app/common/cart-item';
+import { CartService } from '../../services/cart.service';
+import { CartItem } from '../../common/cart-item';
 
 fdescribe('CartDetailsComponent', () => {
   let component: CartDetailsComponent;

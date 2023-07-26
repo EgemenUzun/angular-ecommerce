@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, firstValueFrom } from 'rxjs';
 import { Login } from '../common/login';
-import { User } from '../common/user';
-import { error } from 'cypress/types/jquery';
+
 
 @Injectable({
   providedIn: 'root'
@@ -38,8 +37,7 @@ export class AuthService {
   }
    async isAuth():Promise<boolean>{
     this.isTokenValid();
-    const response = await firstValueFrom(this.isValid.asObservable())
-    return response;
+    return await firstValueFrom(this.isValid.asObservable());
   }
   logout(){
     this.httpClient.post(`${this.authUrl}/logout/${this.storage.getItem('username')}`,null);

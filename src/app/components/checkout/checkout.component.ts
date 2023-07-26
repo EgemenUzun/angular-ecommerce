@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Luv2ShopFormService } from 'src/app/services/luv2-shop-form.service';
-import { Country } from 'src/app/common/country';
-import { State } from 'src/app/common/state';
-import { Luv2ShopValidators } from 'src/app/validators/luv2-shop-validators';
-import { CartService } from 'src/app/services/cart.service';
-import { CheckoutService } from 'src/app/services/checkout.service';
+import { Luv2ShopFormService } from '../../services/luv2-shop-form.service';
+import { Country } from '../../common/country';
+import { State } from '../../common/state';
+import { Luv2ShopValidators } from '../../validators/luv2-shop-validators';
+import { CartService } from '../../services/cart.service';
+import { CheckoutService } from '../../services/checkout.service';
 import { Router } from '@angular/router';
-import { Order } from 'src/app/common/order';
-import { OrderItem } from 'src/app/common/order-item';
-import { Purchase } from 'src/app/common/purchase';
+import { Order } from '../../common/order';
+import { OrderItem } from '../../common/order-item';
+import { Purchase } from '../../common/purchase';
 
 @Component({
   selector: 'app-checkout',
@@ -46,7 +46,6 @@ export class CheckoutComponent implements OnInit {
     this.reviewCartDetails();
 
     // read the users' email from storage
-    const theEmail = JSON.parse(this.storage.getItem('userEmail')!);
 
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
@@ -60,7 +59,7 @@ export class CheckoutComponent implements OnInit {
                                Validators.minLength(2), 
                                Luv2ShopValidators.notOnlyWhitespace]),
                                
-        email: new FormControl(theEmail,
+        email: new FormControl('',
                               [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])
       }),
       shippingAddress: this.formBuilder.group({
@@ -97,12 +96,10 @@ export class CheckoutComponent implements OnInit {
     // populate credit card months
 
     const startMonth: number = new Date().getMonth() + 1;
-    console.log("startMonth: " + startMonth);
 
     this.luv2ShopFormService.getCreditCardMonths(startMonth).subscribe(
       data => {
-        console.log("Retrieved credit card months: " + JSON.stringify(data));
-        this.creditCardMonths = data;
+         this.creditCardMonths = data;
       }
     );
 
@@ -110,7 +107,6 @@ export class CheckoutComponent implements OnInit {
 
     this.luv2ShopFormService.getCreditCardYears().subscribe(
       data => {
-        console.log("Retrieved credit card years: " + JSON.stringify(data));
         this.creditCardYears = data;
       }
     );
@@ -119,7 +115,6 @@ export class CheckoutComponent implements OnInit {
 
     this.luv2ShopFormService.getCountries().subscribe(
       data => {
-        console.log("Retrieved countries: " + JSON.stringify(data));
         this.countries = data;
       }
     );
@@ -168,7 +163,7 @@ export class CheckoutComponent implements OnInit {
       this.checkoutFormGroup.controls?.['billingAddress']
             .setValue(this.checkoutFormGroup.controls?.['shippingAddress'].value);
 
-      // bug fix for states
+
       this.billingAddressStates = this.shippingAddressStates;
 
     }
@@ -182,7 +177,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("Handling the submit button");
 
     if (this.checkoutFormGroup.invalid) {
       this.checkoutFormGroup.markAllAsTouched();
@@ -276,7 +270,6 @@ export class CheckoutComponent implements OnInit {
 
     this.luv2ShopFormService.getCreditCardMonths(startMonth).subscribe(
       data => {
-        console.log("Retrieved credit card months: " + JSON.stringify(data));
         this.creditCardMonths = data;
       }
     );
@@ -287,10 +280,7 @@ export class CheckoutComponent implements OnInit {
     const formGroup = this.checkoutFormGroup.get(formGroupName);
 
     const countryCode = formGroup?.value.country.code;
-    const countryName = formGroup?.value.country.name;
 
-    console.log(`${formGroupName} country code: ${countryCode}`);
-    console.log(`${formGroupName} country name: ${countryName}`);
 
     this.luv2ShopFormService.getStates(countryCode).subscribe(
       data => {

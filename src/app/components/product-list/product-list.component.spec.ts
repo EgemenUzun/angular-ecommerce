@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProductListComponent } from './product-list.component';
-import { ProductService } from 'src/app/services/product.service';
+import { ProductService } from '../../services/product.service';
 import { ActivatedRoute } from '@angular/router';
-import { CartService } from 'src/app/services/cart.service';
-import { WebSocketService } from 'src/app/services/web-socket.service';
+import { CartService } from '../../services/cart.service';
+import { WebSocketService } from '../../services/web-socket.service';
 import { of } from 'rxjs';
 
 fdescribe('ProductListComponent', () => {

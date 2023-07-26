@@ -1,11 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import { CartItem } from 'src/app/common/cart-item';
-import { Product } from 'src/app/common/product';
-import { CartService } from 'src/app/services/cart.service';
-import { ProductService } from 'src/app/services/product.service';
-import { WebSocketService } from 'src/app/services/web-socket.service';
+import { CartItem } from '../../common/cart-item';
+import { Product } from '../../common/product';
+import { CartService } from '../../services/cart.service';
+import { ProductService } from '../../services/product.service';
+import { WebSocketService } from '../../services/web-socket.service';
 import { MambersPageComponent } from './mambers-page.component';
 
 fdescribe('MambersPageComponent', () => {

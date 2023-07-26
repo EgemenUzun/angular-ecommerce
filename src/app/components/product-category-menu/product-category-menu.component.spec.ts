@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { ProductCategory } from 'src/app/common/product-category';
-import { ProductService } from 'src/app/services/product.service';
+
 import { ProductCategoryMenuComponent } from './product-category-menu.component';
+import { ProductService } from '../../services/product.service';
+import { ProductCategory } from '../../common/product-category';
 
 fdescribe('ProductCategoryMenuComponent', () => {
   let component: ProductCategoryMenuComponent;

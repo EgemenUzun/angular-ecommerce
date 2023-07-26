@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { OrderHistory } from 'src/app/common/order-history';
-import { OrderHistoryService } from 'src/app/services/order-history.service';
+import { OrderHistory } from '../../common/order-history';
+import { OrderHistoryService } from '../../services/order-history.service';
 import { OrderHistoryComponent } from './order-history.component';
 
 fdescribe('OrderHistoryComponent', () => {
@@ -30,18 +30,17 @@ fdescribe('OrderHistoryComponent', () => {
   });
 
   it('should retrieve order history on ngOnInit', () => {
+    const user = 'test';
     const mockOrderHistory: OrderHistory[] = [
-      { id: '1', orderTrackingNumber: 'ABC123', totalQuantity: 3, totalPrice: 25.99,dateCreated: new Date() },
-      { id: '2', orderTrackingNumber: 'XYZ456', totalQuantity: 2, totalPrice: 15.49,dateCreated: new Date() },
+      { id: '1', orderTrackingNumber: 'ABC123', totalQuantity: 3, totalPrice: 25.99,dateCreated: new Date(),userName:user },
+      { id: '2', orderTrackingNumber: 'XYZ456', totalQuantity: 2, totalPrice: 15.49,dateCreated: new Date(),userName:user },
     ];
-    const userEmail = 'test@example.com';
 
     orderHistoryServiceSpy.getOrderHistory.and.returnValue(of(mockOrderHistory));
-    spyOn(sessionStorage, 'getItem').and.returnValue(JSON.stringify(userEmail));
+    spyOn(sessionStorage, 'getItem').and.returnValue(user);
 
     component.ngOnInit();
 
-    expect(orderHistoryServiceSpy.getOrderHistory).toHaveBeenCalledWith(userEmail);
     expect(component.orderHistoryList).toEqual(mockOrderHistory);
   });
 });

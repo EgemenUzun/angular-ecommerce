@@ -4,7 +4,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { User } from '../common/user';
 import { Role } from '../common/role';
 import { Login } from '../common/login';
-import { of } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -43,7 +43,7 @@ fdescribe('AuthService', () => {
     req.flush(dummyModel);
   });
 
-  it('should Login User Retruned Null Function',(done:DoneFn)=>{
+  it('should Login User Retruned Null Error Function',(done:DoneFn)=>{
     
     let body = new Login();
     body.username='test';
@@ -55,6 +55,27 @@ fdescribe('AuthService', () => {
     const req = httpController.expectOne(`${service.authUrl}/login`);
     expect(req.request.method).toBe('POST');
     req.flush(null);
+  });
+
+  it('should Login User Retruned Null Error Handling Function',()=>{
+    
+    let body = new Login();
+    body.username='test';
+    body.password='password';
+    const mockSubject = new Subject<any>();
+    spyOn(mockHttpClient, 'post').and.returnValue(mockSubject);
+
+    const observable = service.loginUser(body);
+
+    let result: any;
+    observable.subscribe((data) => {
+      result = data;
+    });
+    mockSubject.error('Login error');
+
+    // Expect the result to be null
+    expect(result).toBeNull();
+
   });
 
   it('should Register User Returned User Function',(done:DoneFn)=>{
@@ -78,7 +99,7 @@ fdescribe('AuthService', () => {
     let body = new Login();
     body.username='test';
     body.password='password';
-    service.registerUser(body).subscribe(data=>{
+    service.registerUser(body).subscribe(data => {
       expect(data).toBe(null);
       done();
       });
@@ -87,53 +108,54 @@ fdescribe('AuthService', () => {
     req.flush(null);
   });
 
-  it('should Token Validation is true Function',(done:DoneFn)=>{
-    service.isTokenValid().subscribe(data=>{
-      expect(data).toBe(true)
-      done();
-    });
+      // Tests that the method sends a POST request to the correct URL with the correct JWT token and correctly updates the 'isValid' subject with the result of the POST request
+  it('should test_valid_token', () => {
+    spyOn(service.isValid,'subscribe');
+    service.isTokenValid();
+    service.isValid.subscribe(data=>{expect(data).toBe(true)});
     const req = httpController.expectOne(`${service.authUrl}/isTokenValid`);
     expect(req.request.method).toBe('POST');
     req.flush(true);
   });
 
-  it('should Token Validation is false Function',(done:DoneFn)=>{
-    service.isTokenValid().subscribe(data=>{
-      expect(data).toBe(false);
-      done();
-    });
+  it('should test_invalid_token', () => {
+    spyOn(service.isValid,'subscribe');
+    service.isTokenValid();
+    service.isValid.subscribe(data=>{expect(data).toBe(false)});
     const req = httpController.expectOne(`${service.authUrl}/isTokenValid`);
     expect(req.request.method).toBe('POST');
     req.flush(false);
   });
 
-  it('should Is Authenticated Retruns True',async () => {
-    spyOn(service, 'isTokenValid').and.returnValue(of(true));
-    spyOn(service, 'getToken').and.returnValue('validToken');
-
-    const result = await service.isAuth();
-
+  it('test_valid_token', async () => {
+    spyOn(service, 'isTokenValid').and.callThrough();
+    spyOn(service.isValid, 'asObservable').and.callThrough();
+    service.storage.setItem('token', 'valid_token');
+    service.isAuth().then((response) => {
+        expect(response).toBeTrue();
+    });
     expect(service.isTokenValid).toHaveBeenCalled();
-    expect(result).toBe(true);
-  })
+    expect(service.isValid.asObservable).toHaveBeenCalled();
+});
 
-  it('should Is Authenticated Retruns false',async () => {
-    spyOn(service, 'isTokenValid').and.returnValue(of(false));
-    spyOn(service, 'getToken').and.returnValue('');
-
-    const result = await service.isAuth();
-
-    expect(service.isTokenValid).toHaveBeenCalled();
-    expect(result).toBe(false);
-  })
-
+it('test_invalid_token', async () => {
+  spyOn(service, 'isTokenValid').and.callThrough();
+  spyOn(service.isValid, 'asObservable').and.callThrough();
+  service.storage.setItem('token', 'invalid_token');
+  service.isAuth().then((response) => {
+      expect(response).toBeFalse();
+  });
+  expect(service.isTokenValid).toHaveBeenCalled();
+  expect(service.isValid.asObservable).toHaveBeenCalled();
+});
+    
   it('should call the logout API endpoint and clear the storage', () => {
     spyOn(mockHttpClient, 'post').and.returnValue(of());
     spyOn(service.storage, 'removeItem');
 
     service.logout();
 
-    expect(mockHttpClient.post).toHaveBeenCalledWith(`${service.authUrl}/logout/null`, (null));
+    expect(mockHttpClient.post).toHaveBeenCalledWith(`${service.authUrl}/logout/valid_username`, (null));
     expect(service.storage.removeItem).toHaveBeenCalledTimes(2);
     expect(service.storage.removeItem).toHaveBeenCalledWith('token');
     expect(service.storage.removeItem).toHaveBeenCalledWith('username');

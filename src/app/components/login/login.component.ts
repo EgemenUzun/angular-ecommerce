@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { Login } from 'src/app/common/login';
-import { AuthService } from 'src/app/services/auth.service';
+import { Login } from '../../common/login';
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import {filter} from 'rxjs/operators';
 @Component({
@@ -12,7 +12,6 @@ import {filter} from 'rxjs/operators';
 })
 export class LoginComponent implements OnInit {
 
-  //oktaSignin: any;
   loginFormGroup!: FormGroup;
   notification=false;
 
@@ -23,20 +22,6 @@ export class LoginComponent implements OnInit {
   /// Auth service
   get username() { return this.loginFormGroup.get('login.username'); }
   get password() { return this.loginFormGroup.get('login.password'); }
-
-  // onSubmit(){
-  //   let loginUser = new Login();
-  //   loginUser = this.loginFormGroup.controls['login'].value;
-  //   this.authService.loginUser(loginUser).subscribe(data=>{
-  //     if(data!==null){
-  //       this.storage.setItem('token',data.jwt);
-  //       this.storage.setItem('username',data.user.username);
-  //       this.router.navigateByUrl('/product')/*.then(data=> window.location.reload())*/;
-  //     }
-  //     else
-  //       this.notification=true
-  //   });
-  // }
 
 
   onSubmit() {
@@ -51,7 +36,7 @@ export class LoginComponent implements OnInit {
       ).subscribe(data => {
         this.storage.setItem('token', data.jwt);
         this.storage.setItem('username', data.user.username);
-        this.router.navigateByUrl('/product')/*.then(data=> window.location.reload())*/;
+        this.router.navigateByUrl('/product');
       });
   }
 

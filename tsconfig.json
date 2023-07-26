@@ -2,8 +2,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -32,5 +30,12 @@
     "strictTemplates": true,
     "esModuleInterop": true, // <- add this
     "allowSyntheticDefaultImports": true // <-- add this
-  }
+  },
+  "include": [
+    "src",
+    "node_modules/cypress"
+],
+"exclude": [
+    "node_modules/cypress"
+]
 }

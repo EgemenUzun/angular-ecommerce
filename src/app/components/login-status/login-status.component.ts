@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { data } from 'cypress/types/jquery';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login-status',
@@ -16,18 +15,8 @@ export class LoginStatusComponent implements OnInit {
   storage1:Storage = localStorage;
   constructor( private authService:AuthService,private router:Router) {}
 
-  /*async ngOnInit(): Promise<void> {
-   if(this.storage1.getItem("token")){
-      if(await this.authService.isAuth().valueOf()){
-        this.isAuthenticated = true
-      }
-     this.userFullName=this.storage1.getItem("username")!;
-    }
-
-  }*/
   ngOnInit(){
       this.authService.isValid.subscribe(data =>{
-        console.log(data);
         this.isAuthenticated = data;
         this.userFullName=this.storage1.getItem("username")!;
       });

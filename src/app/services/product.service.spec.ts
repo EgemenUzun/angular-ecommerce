@@ -106,6 +106,16 @@ fdescribe('ProductService', () => {
     req.flush({ _embedded: { productCategory: mockCategories } });
   });
 
+  it('Should get discounted product',()=>{
+    let prodcut:Product= {id:'1',sku:'a',name:'b',description:'c',unitPrice:10,imageUrl:'d',active:true,unitsInStock:10,dateCreated:new Date(),lastUpdated:new Date()};
+    service.getProductwithDiscount().subscribe(data=>{
+      expect(data).toBe(prodcut);
+    });
+    const req = httpController.expectOne(service.discountUrl);
+    expect(req.request.method).toBe('GET');
+    req.flush(prodcut);
+  });
+
 });
 interface GetResponseProducts {
   _embedded: {

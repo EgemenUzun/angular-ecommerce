@@ -20,11 +20,11 @@ fdescribe('OrderHistoryService', () => {
   });
 
   it('should get order histories',()=>{
-    let orederHistories: OrderHistory[] = [{id:'1',orderTrackingNumber:'trackernumber',totalPrice:10,totalQuantity:2,dateCreated:new Date()}];
-    service.getOrderHistory('testmail@gmail.com').subscribe(data=>{
+    let orederHistories: OrderHistory[] = [{id:'1',orderTrackingNumber:'trackernumber',totalPrice:10,totalQuantity:2,dateCreated:new Date(),userName:'testuser'}];
+    service.getOrderHistory('test').subscribe(data=>{
       expect(data).toBe(orederHistories);
     });
-    const req = httpController.expectOne('http://localhost:8080/api/orders/search/findByCustomerEmailOrderByDateCreatedDesc?email=testmail@gmail.com');
+    const req = httpController.expectOne('http://localhost:8080/api/orders/search/findByCustomerUserNameOrderByDateCreatedDesc?username=test');
     expect(req.request.method).toBe('GET');
     req.flush({ _embedded: { orders: orederHistories } });
   });

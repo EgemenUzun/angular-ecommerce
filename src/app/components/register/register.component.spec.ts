@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RegisterComponent } from './register.component';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
-import { Login } from 'src/app/common/login';
+import { Login } from '../../common/login';
 
 fdescribe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -75,5 +75,10 @@ fdescribe('RegisterComponent', () => {
     expect(component.notification).toBeTrue();
   });
 
-  // Add more test cases to cover other scenarios and methods
+  it('should set username and password empty',()=>{
+    component.ngOnInit();
+    expect(component.registerFormGroup.controls['register']).toBeDefined();
+    expect(component.username?.value).toEqual('');
+    expect(component.password?.value).toEqual('');
+  });
 });

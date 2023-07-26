@@ -27,4 +27,11 @@ fdescribe('SearchComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should search product',()=>{
+    const productName = 'TestProduct'
+    spyOn(router,'navigateByUrl');
+    component.doSearch(productName);
+    expect(router.navigateByUrl).toHaveBeenCalledWith(`/search/${productName}`);
+  });
+
 });

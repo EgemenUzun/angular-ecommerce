@@ -1,11 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 
-import { Luv2ShopFormService } from './luv2-shop-form.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
-import { map, of } from 'rxjs';
 import { Country } from '../common/country';
 import { State } from '../common/state';
+import { Luv2ShopFormService } from './luv2-shop-form.service';
 
 fdescribe('Luv2ShopFormService', () => {
   let service: Luv2ShopFormService;

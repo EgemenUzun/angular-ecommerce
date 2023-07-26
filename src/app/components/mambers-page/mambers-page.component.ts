@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CartItem } from 'src/app/common/cart-item';
-import { Product } from 'src/app/common/product';
-import { CartService } from 'src/app/services/cart.service';
-import { ProductService } from 'src/app/services/product.service';
-import { WebSocketService } from 'src/app/services/web-socket.service';
+import { CartItem } from '../../common/cart-item';
+import { Product } from '../../common/product';
+import { CartService } from '../../services/cart.service';
+import { ProductService } from '../../services/product.service';
+import { WebSocketService } from '../../services/web-socket.service';
 
 @Component({
   selector: 'app-mambers-page',
