@@ -4,12 +4,12 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                bat 'ng build'
+                bat 'npm build'
             }
         }
         stage('Test') {
             steps {
-                bat 'ng test'
+                bat 'npm test'
             }
         }
 
