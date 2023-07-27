@@ -13,6 +13,12 @@ pipeline {
             }
         }
 
+        stage('Unit Serve Angular') {
+            steps {
+                bat 'npm start'
+            }
+        }
+
         stage('Unit E2E Test') {
             steps {
                 bat 'npm run e2e'
