@@ -1,6 +1,6 @@
 {
   "name": "angular-ecommercen",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "app.js",
   "scripts": {
     "ng": "ng",
