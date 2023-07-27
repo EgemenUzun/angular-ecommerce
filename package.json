@@ -9,7 +9,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test --no-watch --code-coverage ",
     "electron": "ng build --configuration development && electron .",
-    "e2e": "cypress run"
+    "e2e": "npx "
   },
   "private": true,
   "dependencies": {
