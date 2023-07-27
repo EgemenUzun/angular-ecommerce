@@ -4,7 +4,7 @@ describe("Login", () => {
       cy.visit("http://localhost:4200/products");
       cy.get("div.dropdown > button").click();
       cy.get("div.dropdown a").click();
-      cy.get("#login").type("egemen");
+      cy.get("#login").type("test");
       cy.get("#password").type("password1");
       cy.get("app-login button").click();
       cy.get('div[role="alert"]').should('be.visible');

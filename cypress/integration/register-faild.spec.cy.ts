@@ -1,5 +1,17 @@
 describe("register", () => {
-    it("tests Login success", () => {
+    it("tests register failed", () => {
+        cy.viewport(1519, 721);
+        cy.visit("http://localhost:4200/products");
+        cy.get("div.dropdown > button").click();
+        cy.get("div.dropdown a").click();
+        cy.get("a:nth-of-type(2)").click();
+        cy.get("#login").type("test");
+        cy.get("#password").type("password");
+        cy.get("app-register button").click();
+        cy.get('div[role="alert"]').should('be.visible');
+        cy.location("href").should("eq", "http://localhost:4200/register");
+    });
+    it("tests register failed", () => {
         cy.viewport(1519, 721);
         cy.visit("http://localhost:4200/products");
         cy.get("div.dropdown > button").click();
