@@ -108,8 +108,6 @@ export class ProductListComponent implements OnInit {
 
     this.previousCategoryId = this.currentCategoryId;
 
-    console.log(`currentCategoryId=${this.currentCategoryId}, thePageNumber=${this.thePageNumber}`);
-
     // now get the products for the given category id
     this.productService.getProductListPaginate(this.thePageNumber - 1,
                                                this.thePageSize,
@@ -133,8 +131,6 @@ export class ProductListComponent implements OnInit {
   }
 
   addToCart(theProduct: Product) {
-    
-    console.log(`Adding to cart: ${theProduct.name}, ${theProduct.unitPrice}`);
 
     let theCartItem = new CartItem(theProduct.id, theProduct.name, theProduct.imageUrl, theProduct.unitPrice);
 

@@ -34,6 +34,7 @@ fdescribe('CheckoutComponent', () => {
     formSerivce = TestBed.inject(Luv2ShopFormService);
     cardService = TestBed.inject(CartService);
     router = TestBed.inject(Router);
+    component.creditCardMonths = [];
     fixture.detectChanges();
   });
 
@@ -93,6 +94,14 @@ fdescribe('CheckoutComponent', () => {
     const statesB:State[] = [{id:2,name:'Istanbul'}];
     component.copyShippingAddressToBillingAddress(false);
     expect(component.billingAddressStates).not.toBe(component.shippingAddressStates);
+  });
+
+  it('should handle month and years /current year not equal the selected year',()=>{
+    const currentYear: number = new Date().getFullYear();
+    const selectedYear: number = Number(currentYear+4);
+    spyOn(component.checkoutFormGroup,'get')
+    component.handleMonthsAndYears();
+    expect(component.checkoutFormGroup.get).not.toBeNull
   });
 
 });

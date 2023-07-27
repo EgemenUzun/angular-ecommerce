@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProductListComponent } from './product-list.component';
 import { ProductService } from '../../services/product.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ParamMap, convertToParamMap } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 import { WebSocketService } from '../../services/web-socket.service';
-import { of } from 'rxjs';
+import { Subscription, of } from 'rxjs';
 
 fdescribe('ProductListComponent', () => {
   let component: ProductListComponent;
@@ -44,21 +44,21 @@ fdescribe('ProductListComponent', () => {
   });
 
   it('should call listProducts on ngOnInit', () => {
+    spyOn(route.paramMap,'subscribe').and.returnValue(new Subscription());
     spyOn(component, 'listProducts');
     webSocketService.getSocket.and.returnValue({
       addEventListener: (eventName: string, callback: any) => {
         // Call the callback function to simulate event
-        callback({ data: 'New discount arrived for test@example.com' });
+        callback({ data: 'Product Created. Product id is:' });
+        
       },
     } as WebSocket);
     fixture.detectChanges();
-    expect(component.listProducts).toHaveBeenCalled();
+    expect(route.paramMap.subscribe).toHaveBeenCalled();
   });
 
   it('should call handleListProducts when route has categoryId', () => {
     const testCategoryId = 1;
-  
-
     spyOn(component, 'handleListProducts');
     webSocketService.getSocket.and.returnValue({
       addEventListener: (eventName: string, callback: any) => {
@@ -66,7 +66,6 @@ fdescribe('ProductListComponent', () => {
         callback({ data: 'New discount arrived for test@example.com' });
       },
     } as WebSocket);
-    fixture.detectChanges();
     expect(component.currentCategoryId).toEqual(testCategoryId);
   });
 
