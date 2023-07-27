@@ -13,7 +13,7 @@ pipeline {
             }
         }
 
-        stage('Unit Serve Angular') {
+        stage('Serve Angular') {
             steps {
                 bat 'npm start'
             }
