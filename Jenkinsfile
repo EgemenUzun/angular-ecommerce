@@ -13,5 +13,11 @@ pipeline {
             }
         }
 
+        stage('Unit E2E Test') {
+            steps {
+                bat 'npm run e2e'
+            }
+        }
+
     }
 }

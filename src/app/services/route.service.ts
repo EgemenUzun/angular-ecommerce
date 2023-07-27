@@ -27,7 +27,7 @@ export class RouteService {
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     
-    {path: 'checkout', component: CheckoutComponent,canActivate:[AuthGuardService]},
+    {path: 'checkout', component: CheckoutComponent},
     {path: 'cart-details', component: CartDetailsComponent},
     {path: 'products/:id', component: ProductDetailsComponent},
     {path: 'search/:keyword', component: ProductListComponent},
