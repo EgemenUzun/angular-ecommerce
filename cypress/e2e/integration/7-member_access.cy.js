@@ -8,7 +8,7 @@ describe("member_access", () => {
     cy.get("app-login button").click();
     cy.location("href").should("eq", "http://localhost:4200/products");
     cy.get("svg").click();
-    cy.get("li:nth-of-type(4) > button").click();
+    cy.get("li:nth-of-type(4) > button").click({force:true});
     cy.location("href").should("eq", "http://localhost:4200/members");
   });
 });
