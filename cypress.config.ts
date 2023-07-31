@@ -8,6 +8,7 @@ export default defineConfig({
     video:false,
     screenshotOnRunFailure:true,
     supportFile:false,
+    trashAssetsBeforeRuns:true,
   },
 
 });
