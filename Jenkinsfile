@@ -17,6 +17,12 @@ pipeline {
             }
         }
 
+        stage('Serve Web Socket') {
+            steps {
+                bat 'start node src/Index.js'
+            }
+        }    
+
         stage('Serve Angular') {
             steps {
                 bat 'npm start'
