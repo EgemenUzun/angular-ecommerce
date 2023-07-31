@@ -9,6 +9,7 @@ export default defineConfig({
     screenshotOnRunFailure:true,
     supportFile:false,
     trashAssetsBeforeRuns:true,
+    
   },
 
 });
